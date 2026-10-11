@@ -1,4 +1,4 @@
-# ProCredit BookStore
+# BookStore
 
 This is a REST API for managing books and authors.
 

@@ -1,5 +1,6 @@
 <Solution>
   <Folder Name="/Solution Items/">
+    <File Path=".gitignore" />
     <File Path="docker-compose.yml" />
   </Folder>
   <Folder Name="/src/">
@@ -8,9 +9,5 @@
     <Project Path="src/ProCredit.BookStore.Auth/ProCredit.BookStore.Auth.csproj" />
     <Project Path="src/ProCredit.BookStore.Domain/ProCredit.BookStore.Domain.csproj" />
     <Project Path="src/ProCredit.BookStore.Infrastructure/ProCredit.BookStore.Infrastructure.csproj" />
-    <Project Path="src/ProCredit.BookStore.TestClient/ProCredit.BookStore.TestClient.csproj" />
-  </Folder>
-  <Folder Name="/tests/">
-    <Project Path="tests/ProCredit.BookStore.Tests/ProCredit.BookStore.Tests.csproj" />
   </Folder>
 </Solution>

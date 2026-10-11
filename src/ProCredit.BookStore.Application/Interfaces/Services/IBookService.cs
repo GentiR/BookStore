@@ -14,5 +14,5 @@ public interface IBookService
 
     Task<bool> DeleteBook(int bookId, CancellationToken cancellationToken);
 
-    Task<PagedResultDTO<BookDTO>> GetBooks(SearchBooksRequest request, CancellationToken cancellationToken);
+    Task<BookSearchResultDTO> GetBooks(SearchBooksRequest request, CancellationToken cancellationToken);
 }

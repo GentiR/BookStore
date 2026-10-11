@@ -7,9 +7,6 @@ public class CreateAuthorRequestValidator : AbstractValidator<CreateAuthorReques
 {
     public CreateAuthorRequestValidator()
     {
-        RuleFor(x => x.AuthorId)
-            .GreaterThan(0);
-
         RuleFor(x => x.Name)
             .NotEmpty()
             .MinimumLength(3)

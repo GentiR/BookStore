@@ -6,6 +6,5 @@ namespace ProCredit.BookStore.Application.Requests;
 
 public record CreateAuthorRequest
 (
-    int AuthorId,
     string Name
 );

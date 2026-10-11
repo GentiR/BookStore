@@ -13,8 +13,7 @@ public class BookService(
                         IAuthorRepository authorRepository) : IBookService
 {
     public async Task<BookDTO?> GetBookWithAuthorById(int bookId, CancellationToken cancellationToken)
-    {
-
+    { 
         var book = await bookRepository.GetBookWithAuthorById(bookId, cancellationToken);
 
         if (book is null)
@@ -83,12 +82,12 @@ public class BookService(
         return await bookRepository.DeleteBook(bookId, cancellationToken);
     }
 
-    public async Task<PagedResultDTO<BookDTO>> GetBooks(SearchBooksRequest request, CancellationToken cancellationToken)
+    public async Task<BookSearchResultDTO> GetBooks(SearchBooksRequest request, CancellationToken cancellationToken)
     {
         var books = await bookRepository.GetBooks(request, cancellationToken);
         var totalCount = await bookRepository.CountBooks(request, cancellationToken);
 
-        return new PagedResultDTO<BookDTO>
+        return new BookSearchResultDTO
         {
             Items = books,
             Page = request.Page,

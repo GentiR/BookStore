@@ -20,7 +20,6 @@ The project includes:
 - `ProCredit.BookStore.Domain` - Domain models: `Author` and `Book`
 - `ProCredit.BookStore.Application` - Requests, DTOs, validations, services and interfaces
 - `ProCredit.BookStore.Infrastructure` - DbContext, repositories and migrations
-- `ProCredit.BookStore.Tests` - Test project
 
 ## Run with Visual Studio
 

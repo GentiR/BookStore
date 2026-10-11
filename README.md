@@ -31,43 +31,25 @@ Set these two projects as startup projects:
 ```text
 ProCredit.BookStore.Auth
 ProCredit.BookStore.Api
+````
+## Run the solution.
+- Swagger opens at: https://localhost:7032/swagger or: http://localhost:5291/swagger
 
-Run the solution.
-Swagger opens at: https://localhost:7032/swagger or: http://localhost:5291/swagger
+## Run with Docker
+- Make sure Docker Desktop is running.
+- From the solution folder run:
+- docker compose up --build
 
-Run with Docker
-Make sure Docker Desktop is running.
-From the solution folder run:
-docker compose up --build
+- Swagger will be available at: http://localhost:5291/swagger
+- Swagger Authorization
+  - Click Authorize in Swagger.
+      - Use:
+         - client_id: bookstore-client
+         - client_secret: bookstore-secret
+     - Select both scopes:
+         - books.crud
+         - books.search
 
-Swagger will be available at:
-http://localhost:5291/swagger
-
-Swagger Authorization
-  Click Authorize in Swagger.
-Use:
-  client_id: bookstore-client
-  client_secret: bookstore-secret
-Select both scopes:
-  books.crud
-  books.search
-
-Example Test
-  Create an author first:
-  {
-    "authorId": 1,
-    "name": "Gent Rechica"
-  }
-  Then create a book:
-  {
-    "authorId": 1,
-    "title": "First Book",
-    "subTitle": "Testing"
-  }
-  Search books:
-  GET /api/books/search?Page=1&PageSize=10
-
-
-Notes
-The API creates the database automatically by applying EF Core migrations on startup.
-Docker starts the API, Auth server and SQL Server together.
+- Notes
+  - The API creates the database automatically by applying EF Core migrations on startup.
+  - Docker starts the API, Auth server and SQL Server together.

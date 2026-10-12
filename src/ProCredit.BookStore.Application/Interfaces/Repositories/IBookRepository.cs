@@ -1,6 +1,7 @@
 ﻿using ProCredit.BookStore.Application.DTOs;
-using ProCredit.BookStore.Application.Requests;
+using ProCredit.BookStore.Application.Params;
 using ProCredit.BookStore.Application.ReadModels;
+using ProCredit.BookStore.Application.Requests;
 using ProCredit.BookStore.Domain;
 
 namespace ProCredit.BookStore.Application.Interfaces.Repositories;
@@ -17,7 +18,7 @@ public interface IBookRepository
 
     Task<bool> DeleteBook(int bookId, CancellationToken cancellationToken);
 
-    Task<IReadOnlyCollection<BookDTO>> GetBooks(SearchBooksRequest request, CancellationToken cancellationToken);
+    Task<IReadOnlyCollection<BookDTO>> GetBooks(SearchBooksParams searchParams, CancellationToken cancellationToken);
 
-    Task<int> CountBooks(SearchBooksRequest request, CancellationToken cancellationToken);
+    Task<int> CountBooks(SearchBooksParams searchParams, CancellationToken cancellationToken);
 }

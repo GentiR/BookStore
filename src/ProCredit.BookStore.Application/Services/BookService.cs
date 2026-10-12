@@ -2,8 +2,9 @@
 using ProCredit.BookStore.Application.DTOs;
 using ProCredit.BookStore.Application.Interfaces.Repositories;
 using ProCredit.BookStore.Application.Interfaces.Services;
-using ProCredit.BookStore.Application.Results;
+using ProCredit.BookStore.Application.Params;
 using ProCredit.BookStore.Application.Requests;
+using ProCredit.BookStore.Application.Results;
 using ProCredit.BookStore.Domain;
 
 namespace ProCredit.BookStore.Application.Services;
@@ -84,8 +85,16 @@ public class BookService(
 
     public async Task<BookSearchResultDTO> GetBooks(SearchBooksRequest request, CancellationToken cancellationToken)
     {
-        var books = await bookRepository.GetBooks(request, cancellationToken);
-        var totalCount = await bookRepository.CountBooks(request, cancellationToken);
+        var searchParams = new SearchBooksParams
+        {
+            Title = request.Title,
+            Author = request.Author,
+            Page = request.Page,
+            PageSize = request.PageSize
+        };
+
+        var books = await bookRepository.GetBooks(searchParams, cancellationToken);
+        var totalCount = await bookRepository.CountBooks(searchParams, cancellationToken);
 
         return new BookSearchResultDTO
         {

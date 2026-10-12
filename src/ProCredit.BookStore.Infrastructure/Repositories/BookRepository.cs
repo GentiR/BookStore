@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ProCredit.BookStore.Application.DTOs;
 using ProCredit.BookStore.Application.Interfaces.Repositories;
+using ProCredit.BookStore.Application.Params;
 using ProCredit.BookStore.Application.ReadModels;
 using ProCredit.BookStore.Application.Requests;
 using ProCredit.BookStore.Domain;
@@ -11,22 +12,6 @@ namespace ProCredit.BookStore.Infrastructure.Repositories;
 public class BookRepository(BookStoreDbContext dbContext) : IBookRepository
 {
     #region CRUD Book
-    public async Task<BookWithAuthorViewModel?> GetBookWithAuthorById(int bookId, CancellationToken cancellationToken)
-    {
-        return await (from book in dbContext.Books.AsNoTracking()
-                        join author in dbContext.Authors.AsNoTracking() on book.AuthorId equals author.AuthorId
-                        where book.BookId == bookId
-                        select new BookWithAuthorViewModel
-                        {
-                            BookId = book.BookId,
-                            AuthorId = author.AuthorId,
-                            AuthorName = author.Name,
-                            Title = book.Title,
-                            SubTitle = book.SubTitle
-                        })
-                        .FirstOrDefaultAsync(cancellationToken);
-    }
-
     public async Task<Book?> GetBookById(int bookId, CancellationToken cancellationToken)
     {
         return await dbContext.Books
@@ -78,7 +63,23 @@ public class BookRepository(BookStoreDbContext dbContext) : IBookRepository
 
 
     #region SearchBooks
-    public async Task<IReadOnlyCollection<BookDTO>> GetBooks(SearchBooksRequest request, CancellationToken cancellationToken)
+    public async Task<BookWithAuthorViewModel?> GetBookWithAuthorById(int bookId, CancellationToken cancellationToken)
+    {
+        return await (from book in dbContext.Books.AsNoTracking()
+                      join author in dbContext.Authors.AsNoTracking() on book.AuthorId equals author.AuthorId
+                      where book.BookId == bookId
+                      select new BookWithAuthorViewModel
+                      {
+                          BookId = book.BookId,
+                          AuthorId = author.AuthorId,
+                          AuthorName = author.Name,
+                          Title = book.Title,
+                          SubTitle = book.SubTitle
+                      })
+                        .FirstOrDefaultAsync(cancellationToken);
+    }
+
+    public async Task<IReadOnlyCollection<BookDTO>> GetBooks(SearchBooksParams request, CancellationToken cancellationToken)
     {
         var query = SearchBooks(request);
 
@@ -99,7 +100,7 @@ public class BookRepository(BookStoreDbContext dbContext) : IBookRepository
                             .ToListAsync(cancellationToken);
     }
 
-    private IQueryable<BookWithAuthorViewModel> SearchBooks(SearchBooksRequest request)
+    private IQueryable<BookWithAuthorViewModel> SearchBooks(SearchBooksParams request)
     {
         var query = from book in dbContext.Books.AsNoTracking()
                     join author in dbContext.Authors.AsNoTracking() on book.AuthorId equals author.AuthorId
@@ -125,7 +126,7 @@ public class BookRepository(BookStoreDbContext dbContext) : IBookRepository
         return query;
     }
 
-    public async Task<int> CountBooks(SearchBooksRequest request, CancellationToken cancellationToken)
+    public async Task<int> CountBooks(SearchBooksParams request, CancellationToken cancellationToken)
     {
         return await SearchBooks(request).CountAsync(cancellationToken);
     }
